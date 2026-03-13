@@ -1,0 +1,43 @@
+.page { max-width: 900px; margin: 0 auto; }
+.header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 1.5rem; gap: 1rem; }
+.title { font-size: 1.5rem; font-weight: 700; color: #e2e8f0; margin: 0 0 0.25rem; }
+.sub { color: #64748b; font-size: 0.875rem; margin: 0; }
+.addBtn { background: #6366f1; color: white; border: none; padding: 0.6rem 1.25rem; border-radius: 8px; cursor: pointer; font-size: 0.9rem; font-weight: 600; white-space: nowrap; }
+
+.summaryRow { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-bottom: 1.5rem; }
+.sumCard { background: #1e293b; border: 1px solid #334155; border-top: 3px solid; border-radius: 10px; padding: 1rem 1.25rem; }
+.sumLabel { display: block; font-size: 0.8rem; color: #64748b; margin-bottom: 0.25rem; }
+.sumVal { font-size: 1.25rem; font-weight: 700; color: #e2e8f0; }
+
+.chartCard { background: #1e293b; border: 1px solid #334155; border-radius: 12px; padding: 1.5rem; margin-bottom: 1.5rem; }
+.cardTitle { font-size: 1rem; font-weight: 600; color: #e2e8f0; margin: 0 0 1rem; }
+
+.formCard { background: #1e293b; border: 1px solid #6366f1; border-radius: 12px; padding: 1.5rem; margin-bottom: 1.5rem; }
+.formTitle { font-size: 1rem; font-weight: 600; color: #e2e8f0; margin: 0 0 1rem; }
+.formGrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 0.75rem; margin-bottom: 1rem; }
+.input { padding: 0.65rem 0.9rem; background: #0f172a; border: 1px solid #334155; border-radius: 8px; color: #e2e8f0; font-size: 0.9rem; outline: none; width: 100%; box-sizing: border-box; }
+.input:focus { border-color: #6366f1; }
+.formActions { display: flex; gap: 0.75rem; justify-content: flex-end; }
+.cancelBtn { background: #334155; color: #94a3b8; border: none; padding: 0.6rem 1.25rem; border-radius: 8px; cursor: pointer; }
+.saveBtn { background: #6366f1; color: white; border: none; padding: 0.6rem 1.25rem; border-radius: 8px; cursor: pointer; font-weight: 600; }
+
+.holdingsList { display: flex; flex-direction: column; gap: 0.75rem; }
+.empty { text-align: center; color: #475569; padding: 3rem; background: #1e293b; border-radius: 12px; border: 1px dashed #334155; }
+
+.holdingRow { display: flex; align-items: center; gap: 1rem; background: #1e293b; border: 1px solid #334155; border-radius: 12px; padding: 1rem 1.25rem; transition: background 0.15s; }
+.holdingRow:hover { background: #243147; }
+.holdingDot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+.holdingInfo { flex: 1; min-width: 0; }
+.holdingHeader { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.25rem; flex-wrap: wrap; }
+.ticker { font-size: 1rem; font-weight: 700; color: #e2e8f0; }
+.holdingName { font-size: 0.875rem; color: #94a3b8; }
+.assetType { font-size: 0.7rem; background: #334155; color: #94a3b8; padding: 0.1rem 0.4rem; border-radius: 4px; }
+.holdingDetails { font-size: 0.775rem; color: #64748b; display: flex; gap: 1rem; flex-wrap: wrap; }
+.holdingRight { text-align: right; }
+.holdingValue { font-size: 1rem; font-weight: 700; color: #e2e8f0; }
+.holdingGain { font-size: 0.8rem; font-weight: 600; }
+.holdingActions { display: flex; gap: 0.25rem; opacity: 0; transition: opacity 0.15s; }
+.holdingRow:hover .holdingActions { opacity: 1; }
+.iconBtn { background: none; border: none; cursor: pointer; font-size: 0.9rem; padding: 0.25rem; border-radius: 4px; }
+
+@media (max-width: 768px) { .summaryRow { grid-template-columns: repeat(2, 1fr); } }

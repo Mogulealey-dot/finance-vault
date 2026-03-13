@@ -1,0 +1,35 @@
+.page { max-width: 900px; margin: 0 auto; }
+.header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.5rem; }
+.title { font-size: 1.5rem; font-weight: 700; color: #e2e8f0; margin: 0; }
+.addBtn { background: #6366f1; color: white; border: none; padding: 0.6rem 1.25rem; border-radius: 8px; cursor: pointer; font-size: 0.9rem; font-weight: 600; }
+
+.netRow { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-bottom: 1.5rem; }
+.netCard { background: #1e293b; border: 1px solid #334155; border-top: 3px solid; border-radius: 10px; padding: 1rem 1.25rem; }
+.netLabel { display: block; font-size: 0.8rem; color: #64748b; margin-bottom: 0.25rem; }
+.netVal { font-size: 1.4rem; font-weight: 700; }
+
+.formCard { background: #1e293b; border: 1px solid #6366f1; border-radius: 12px; padding: 1.5rem; margin-bottom: 1.5rem; }
+.formTitle { font-size: 1rem; font-weight: 600; color: #e2e8f0; margin: 0 0 1rem; }
+.formGrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 0.75rem; margin-bottom: 1rem; }
+.input { padding: 0.65rem 0.9rem; background: #0f172a; border: 1px solid #334155; border-radius: 8px; color: #e2e8f0; font-size: 0.9rem; outline: none; width: 100%; box-sizing: border-box; }
+.input:focus { border-color: #6366f1; }
+.formActions { display: flex; gap: 0.75rem; justify-content: flex-end; }
+.cancelBtn { background: #334155; color: #94a3b8; border: none; padding: 0.6rem 1.25rem; border-radius: 8px; cursor: pointer; }
+.saveBtn { background: #6366f1; color: white; border: none; padding: 0.6rem 1.25rem; border-radius: 8px; cursor: pointer; font-weight: 600; }
+
+.empty { text-align: center; color: #475569; padding: 3rem; background: #1e293b; border-radius: 12px; border: 1px dashed #334155; }
+
+.group { margin-bottom: 2rem; }
+.groupTitle { font-size: 1rem; font-weight: 600; color: #94a3b8; margin: 0 0 0.75rem; }
+.accountGrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1rem; }
+
+.accountCard { background: #1e293b; border: 1px solid #334155; border-radius: 12px; padding: 1.25rem; transition: transform 0.15s; }
+.accountCard:hover { transform: translateY(-2px); }
+.accountHeader { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.75rem; }
+.accountName { font-size: 0.95rem; font-weight: 600; color: #e2e8f0; }
+.accountInst { font-size: 0.75rem; color: #64748b; margin-top: 0.15rem; }
+.accountActions { display: flex; gap: 0.25rem; opacity: 0; transition: opacity 0.15s; }
+.accountCard:hover .accountActions { opacity: 1; }
+.iconBtn { background: none; border: none; cursor: pointer; font-size: 0.9rem; padding: 0.25rem; border-radius: 4px; }
+.accountBal { font-size: 1.5rem; font-weight: 700; margin-bottom: 0.25rem; }
+.accountType { font-size: 0.75rem; color: #64748b; }

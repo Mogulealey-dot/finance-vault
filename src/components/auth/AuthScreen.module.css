@@ -1,0 +1,85 @@
+.page {
+  min-height: 100vh;
+  background: #0f172a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.card {
+  background: #1e293b;
+  border: 1px solid #334155;
+  border-radius: 16px;
+  padding: 2.5rem;
+  width: 100%;
+  max-width: 420px;
+}
+
+.header { text-align: center; margin-bottom: 2rem; }
+.logo { font-size: 2.5rem; display: block; margin-bottom: 0.5rem; }
+.title {
+  font-size: 1.75rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, #6366f1, #22c55e);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin: 0 0 0.25rem;
+}
+.subtitle { color: #64748b; font-size: 0.9rem; margin: 0; }
+
+.tabs { display: flex; border-bottom: 1px solid #334155; margin-bottom: 1.5rem; }
+.tab { flex: 1; padding: 0.75rem; background: none; border: none; color: #64748b; cursor: pointer; font-size: 0.95rem; border-bottom: 2px solid transparent; margin-bottom: -1px; transition: all 0.15s; }
+.tab.active { color: #6366f1; border-bottom-color: #6366f1; font-weight: 600; }
+
+.form { display: flex; flex-direction: column; gap: 0.75rem; }
+.input {
+  padding: 0.75rem 1rem;
+  background: #0f172a;
+  border: 1px solid #334155;
+  border-radius: 8px;
+  color: #e2e8f0;
+  font-size: 0.95rem;
+  outline: none;
+  transition: border-color 0.15s;
+}
+.input:focus { border-color: #6366f1; }
+.input::placeholder { color: #475569; }
+
+.error { color: #f87171; font-size: 0.85rem; margin: 0; }
+
+.primaryBtn {
+  padding: 0.75rem;
+  background: linear-gradient(135deg, #6366f1, #4f46e5);
+  border: none;
+  border-radius: 8px;
+  color: white;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.15s;
+  margin-top: 0.25rem;
+}
+.primaryBtn:hover { opacity: 0.9; }
+
+.divider { display: flex; align-items: center; gap: 1rem; margin: 1.25rem 0; color: #475569; font-size: 0.85rem; }
+.divider::before, .divider::after { content: ''; flex: 1; height: 1px; background: #334155; }
+
+.googleBtn {
+  width: 100%;
+  padding: 0.75rem;
+  background: #0f172a;
+  border: 1px solid #334155;
+  border-radius: 8px;
+  color: #e2e8f0;
+  font-size: 0.95rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: background 0.15s;
+}
+.googleBtn:hover { background: #334155; }
+
+.security { text-align: center; color: #475569; font-size: 0.75rem; margin: 1.25rem 0 0; }

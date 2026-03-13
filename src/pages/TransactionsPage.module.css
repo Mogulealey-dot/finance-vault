@@ -1,0 +1,49 @@
+.page { max-width: 900px; margin: 0 auto; }
+.header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.5rem; }
+.title { font-size: 1.5rem; font-weight: 700; color: #e2e8f0; margin: 0; }
+.addBtn { background: #6366f1; color: white; border: none; padding: 0.6rem 1.25rem; border-radius: 8px; cursor: pointer; font-size: 0.9rem; font-weight: 600; }
+
+.summaryRow { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-bottom: 1.5rem; }
+.summaryCard { background: #1e293b; border: 1px solid #334155; border-top: 3px solid; border-radius: 10px; padding: 1rem 1.25rem; }
+.summaryLabel { display: block; font-size: 0.8rem; color: #64748b; margin-bottom: 0.25rem; }
+.summaryVal { font-size: 1.4rem; font-weight: 700; }
+
+.filters { display: flex; gap: 0.75rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
+.search { flex: 1; min-width: 200px; padding: 0.65rem 1rem; background: #1e293b; border: 1px solid #334155; border-radius: 8px; color: #e2e8f0; font-size: 0.9rem; outline: none; }
+.search:focus { border-color: #6366f1; }
+.select { padding: 0.65rem 1rem; background: #1e293b; border: 1px solid #334155; border-radius: 8px; color: #e2e8f0; font-size: 0.9rem; cursor: pointer; outline: none; }
+
+.formCard { background: #1e293b; border: 1px solid #6366f1; border-radius: 12px; padding: 1.5rem; margin-bottom: 1.5rem; }
+.formTitle { font-size: 1rem; font-weight: 600; color: #e2e8f0; margin: 0 0 1rem; }
+.formGrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 0.75rem; margin-bottom: 0.75rem; }
+.input { padding: 0.65rem 0.9rem; background: #0f172a; border: 1px solid #334155; border-radius: 8px; color: #e2e8f0; font-size: 0.9rem; outline: none; width: 100%; box-sizing: border-box; }
+.input:focus { border-color: #6366f1; }
+.fullWidth { margin-bottom: 0.75rem; }
+.formActions { display: flex; gap: 0.75rem; justify-content: flex-end; margin-top: 0.75rem; }
+.cancelBtn { background: #334155; color: #94a3b8; border: none; padding: 0.6rem 1.25rem; border-radius: 8px; cursor: pointer; }
+.saveBtn { background: #6366f1; color: white; border: none; padding: 0.6rem 1.25rem; border-radius: 8px; cursor: pointer; font-weight: 600; }
+
+.txList { display: flex; flex-direction: column; gap: 0.5rem; }
+.empty { text-align: center; color: #475569; padding: 3rem; background: #1e293b; border-radius: 12px; border: 1px dashed #334155; }
+
+.txRow {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background: #1e293b;
+  border: 1px solid #334155;
+  border-radius: 10px;
+  padding: 0.9rem 1rem;
+  transition: background 0.15s;
+}
+.txRow:hover { background: #243147; }
+.txIcon { width: 2.5rem; height: 2.5rem; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; flex-shrink: 0; }
+.txMain { flex: 1; min-width: 0; }
+.txDesc { display: block; font-size: 0.95rem; color: #e2e8f0; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.txMeta { font-size: 0.775rem; color: #64748b; }
+.txRight { display: flex; align-items: center; gap: 0.75rem; }
+.txAmt { font-size: 1rem; font-weight: 700; white-space: nowrap; }
+.txActions { display: flex; gap: 0.25rem; opacity: 0; transition: opacity 0.15s; }
+.txRow:hover .txActions { opacity: 1; }
+.iconBtn { background: none; border: none; cursor: pointer; font-size: 0.9rem; padding: 0.25rem; border-radius: 4px; }
+.iconBtn:hover { background: #334155; }
