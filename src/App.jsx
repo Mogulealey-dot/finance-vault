@@ -17,8 +17,8 @@ export default function App({ user, logOut }) {
   const uid = user?.uid
 
   const {
-    transactions, addTx, updateTx, removeTx,
-    accounts, addAccount, updateAccount, removeAccount,
+    transactions, txLoading, addTx, updateTx, removeTx,
+    accounts, acLoading, addAccount, updateAccount, removeAccount,
     budgets, addBudget, updateBudget, removeBudget,
     bills, addBill, updateBill, removeBill,
     investments, addInvestment, updateInvestment, removeInvestment,
@@ -37,7 +37,7 @@ export default function App({ user, logOut }) {
   const renderPage = () => {
     switch (activePage) {
       case 'dashboard':
-        return <DashboardPage user={user} stats={stats} alerts={alerts} accounts={accounts} thisMonthTx={thisMonthTx} onNavigate={setActivePage} />
+        return <DashboardPage user={user} stats={stats} alerts={alerts} accounts={accounts} thisMonthTx={thisMonthTx} loading={txLoading || acLoading} onNavigate={setActivePage} />
       case 'transactions':
         return <TransactionsPage uid={uid} transactions={transactions} accounts={accounts} addTx={addTx} updateTx={updateTx} removeTx={removeTx} />
       case 'budget':
@@ -53,7 +53,7 @@ export default function App({ user, logOut }) {
       case 'settings':
         return <SettingsPage user={user} settings={settings} updateSettings={updateSettings} logOut={logOut} />
       default:
-        return <DashboardPage user={user} stats={stats} alerts={alerts} accounts={accounts} thisMonthTx={thisMonthTx} onNavigate={setActivePage} />
+        return <DashboardPage user={user} stats={stats} alerts={alerts} accounts={accounts} thisMonthTx={thisMonthTx} loading={txLoading || acLoading} onNavigate={setActivePage} />
     }
   }
 

@@ -17,7 +17,65 @@ function StatCard({ label, value, sub, color, icon }) {
 
 function fmt(n) { return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n || 0) }
 
-export default function DashboardPage({ user, stats, alerts, accounts, thisMonthTx, onNavigate }) {
+// Animated skeleton pulse block
+function Skeleton({ width = '100%', height = 20, radius = 6, style = {} }) {
+  return (
+    <div style={{
+      width, height, borderRadius: radius,
+      background: 'linear-gradient(90deg,#1e293b 25%,#263247 50%,#1e293b 75%)',
+      backgroundSize: '200% 100%',
+      animation: 'skeletonPulse 1.4s ease-in-out infinite',
+      ...style,
+    }} />
+  )
+}
+
+if (typeof document !== 'undefined' && !document.getElementById('skeleton-style')) {
+  const s = document.createElement('style')
+  s.id = 'skeleton-style'
+  s.textContent = '@keyframes skeletonPulse{0%,100%{background-position:200% 0}50%{background-position:0 0}}'
+  document.head.appendChild(s)
+}
+
+function SkeletonDashboard() {
+  return (
+    <div style={{ padding: '24px 32px' }}>
+      <div style={{ marginBottom: 28 }}>
+        <Skeleton width={220} height={28} radius={6} style={{ marginBottom: 10 }} />
+        <Skeleton width={160} height={16} radius={4} />
+      </div>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill,minmax(200px,1fr))', gap: 16, marginBottom: 24 }}>
+        {[0,1,2,3,4,5].map(i => (
+          <div key={i} style={{ background: '#1e293b', borderRadius: 12, padding: 20, borderTop: '3px solid #334155' }}>
+            <Skeleton width={32} height={32} radius={8} style={{ marginBottom: 12 }} />
+            <Skeleton width="60%" height={24} radius={4} style={{ marginBottom: 8 }} />
+            <Skeleton width="80%" height={14} radius={4} />
+          </div>
+        ))}
+      </div>
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
+        <div style={{ background: '#1e293b', borderRadius: 12, padding: 20 }}>
+          <Skeleton width={180} height={18} radius={4} style={{ marginBottom: 16 }} />
+          <Skeleton width="100%" height={160} radius={8} />
+        </div>
+        <div style={{ background: '#1e293b', borderRadius: 12, padding: 20 }}>
+          <Skeleton width={200} height={18} radius={4} style={{ marginBottom: 16 }} />
+          {[0,1,2,3,4].map(i => (
+            <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 12 }}>
+              <Skeleton width={24} height={24} radius={6} />
+              <Skeleton width="40%" height={14} radius={4} />
+              <Skeleton width="30%" height={10} radius={4} style={{ flex: 1 }} />
+              <Skeleton width={60} height={14} radius={4} />
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export default function DashboardPage({ user, stats, alerts, accounts, thisMonthTx, loading, onNavigate }) {
+  if (loading) return <SkeletonDashboard />
   const name = user?.displayName?.split(' ')[0] || 'there'
 
   // Build spending trend from last 7 days of transactions
