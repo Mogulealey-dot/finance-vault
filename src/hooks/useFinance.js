@@ -9,9 +9,12 @@ export function useFinance(uid) {
   const { data: bills, loading: blLoading, add: addBill, update: updateBill, remove: removeBill } = useFirestore(uid, 'bills')
   const { data: investments, loading: invLoading, add: addInvestment, update: updateInvestment, remove: removeInvestment } = useFirestore(uid, 'investments')
 
-  const now = new Date()
-  const monthStart = startOfMonth(now)
-  const monthEnd = endOfMonth(now)
+  // Memoized so monthStart/monthEnd are stable object references across renders,
+  // preventing thisMonthTx from re-running on every render
+  const { monthStart, monthEnd } = useMemo(() => {
+    const now = new Date()
+    return { monthStart: startOfMonth(now), monthEnd: endOfMonth(now) }
+  }, []) // stable for the lifetime of the component; refreshes on remount (month change)
 
   const thisMonthTx = useMemo(() => transactions.filter(tx => {
     try {

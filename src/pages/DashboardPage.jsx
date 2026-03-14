@@ -1,3 +1,4 @@
+import { useMemo } from 'react'
 import { format } from 'date-fns'
 import styles from './DashboardPage.module.css'
 import { getCategoryById } from '../config/categories'
@@ -20,7 +21,7 @@ export default function DashboardPage({ user, stats, alerts, accounts, thisMonth
   const name = user?.displayName?.split(' ')[0] || 'there'
 
   // Build spending trend from last 7 days of transactions
-  const trendData = (() => {
+  const trendData = useMemo(() => {
     const days = []
     for (let i = 6; i >= 0; i--) {
       const d = new Date(); d.setDate(d.getDate() - i)
@@ -35,11 +36,14 @@ export default function DashboardPage({ user, stats, alerts, accounts, thisMonth
       days.push({ day: label, amount: spent })
     }
     return days
-  })()
+  }, [thisMonthTx])
 
-  const topCategories = Object.entries(stats?.byCategory || {})
-    .sort((a, b) => b[1] - a[1])
-    .slice(0, 5)
+  const topCategories = useMemo(
+    () => Object.entries(stats?.byCategory || {}).sort((a, b) => b[1] - a[1]).slice(0, 5),
+    [stats?.byCategory]
+  )
+
+  const insights = useMemo(() => generateInsights(stats), [stats])
 
   return (
     <div className={styles.page}>
@@ -165,7 +169,7 @@ export default function DashboardPage({ user, stats, alerts, accounts, thisMonth
       <div className={`${styles.card} ${styles.aiPanel}`}>
         <h2 className={styles.cardTitle}>🧠 AI Insights</h2>
         <div className={styles.insightGrid}>
-          {generateInsights(stats).map((insight, i) => (
+          {insights.map((insight, i) => (
             <div key={i} className={`${styles.insight} ${styles[insight.type]}`}>
               <span className={styles.insightIcon}>{insight.icon}</span>
               <p>{insight.text}</p>

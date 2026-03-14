@@ -13,9 +13,15 @@ export function useAlerts({ stats, accounts, bills }) {
       })
     }
 
-    // Upcoming bills
+    // Upcoming bills — compute actual days remaining from dueDay (day-of-month)
     if (stats?.upcomingBills) {
-      stats.upcomingBills.forEach(b => list.push({ id: `bill-${b.id}`, type: 'warning', page: 'bills', message: `${b.name} due in ${b.dueDay} — $${b.amount}` }))
+      const today = new Date()
+      stats.upcomingBills.forEach(b => {
+        const dueDate = new Date(today.getFullYear(), today.getMonth(), b.dueDay)
+        const daysLeft = Math.round((dueDate - today) / 86400000)
+        const when = daysLeft === 0 ? 'due today' : `due in ${daysLeft} day${daysLeft !== 1 ? 's' : ''}`
+        list.push({ id: `bill-${b.id}`, type: 'warning', page: 'bills', message: `${b.name} ${when} — $${b.amount}` })
+      })
     }
 
     // Low balance
@@ -25,7 +31,7 @@ export function useAlerts({ stats, accounts, bills }) {
     }
 
     return list
-  }, [stats, accounts, bills])
+  }, [stats, accounts]) // bills removed — not read inside memo; upcomingBills comes from stats
 
   const alertsByPage = useMemo(() => {
     const map = {}
