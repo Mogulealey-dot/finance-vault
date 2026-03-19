@@ -7,7 +7,7 @@ function fmt(n) { return new Intl.NumberFormat('en-US', { style: 'currency', cur
 
 const EMPTY_FORM = { category: 'food', label: '', limit: '', method: 'custom', notes: '' }
 
-export default function BudgetPage({ budgets, addBudget, updateBudget, removeBudget, stats }) {
+export default function BudgetPage({ budgets, addBudget, updateBudget, removeBudget, stats, showToast }) {
   const [showForm, setShowForm] = useState(false)
   const [form, setForm] = useState(EMPTY_FORM)
   const [editing, setEditing] = useState(null)
@@ -19,8 +19,14 @@ export default function BudgetPage({ budgets, addBudget, updateBudget, removeBud
     if (!form.limit) return
     const cat = TRANSACTION_CATEGORIES.find(c => c.id === form.category)
     const data = { ...form, limit: parseFloat(form.limit), label: form.label || cat?.label }
-    if (editing) { await updateBudget(editing, data); setEditing(null) }
-    else await addBudget(data)
+    if (editing) {
+      await updateBudget(editing, data)
+      setEditing(null)
+      showToast?.('Budget updated')
+    } else {
+      await addBudget(data)
+      showToast?.('Budget added')
+    }
     setForm(EMPTY_FORM)
     setShowForm(false)
   }
@@ -132,7 +138,7 @@ export default function BudgetPage({ budgets, addBudget, updateBudget, removeBud
               </div>
               <div className={styles.rowActions}>
                 <button className={styles.iconBtn} onClick={() => handleEdit(b)}>✏️</button>
-                <button className={styles.iconBtn} onClick={() => removeBudget(b.id)}>🗑️</button>
+                <button className={styles.iconBtn} onClick={() => { removeBudget(b.id); showToast?.('Budget removed', 'error') }}>🗑️</button>
               </div>
             </div>
           )

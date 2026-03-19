@@ -8,7 +8,7 @@ function fmt(n) { return new Intl.NumberFormat('en-US', { style: 'currency', cur
 
 const EMPTY_FORM = { type: 'expense', amount: '', description: '', category: 'food', date: format(new Date(), 'yyyy-MM-dd'), account: '', notes: '' }
 
-export default function TransactionsPage({ uid, transactions, accounts, addTx, updateTx, removeTx }) {
+export default function TransactionsPage({ uid, transactions, accounts, addTx, updateTx, removeTx, showToast }) {
   const [showForm, setShowForm] = useState(false)
   const [form, setForm] = useState(EMPTY_FORM)
   const [editing, setEditing] = useState(null)
@@ -24,8 +24,14 @@ export default function TransactionsPage({ uid, transactions, accounts, addTx, u
   const handleSave = async () => {
     if (!form.amount || !form.description) return
     const data = { ...form, amount: parseFloat(form.amount) }
-    if (editing) { await updateTx(editing, data); setEditing(null) }
-    else await addTx(data)
+    if (editing) {
+      await updateTx(editing, data)
+      setEditing(null)
+      showToast?.('Transaction updated')
+    } else {
+      await addTx(data)
+      showToast?.('Transaction saved')
+    }
     setForm(EMPTY_FORM)
     setShowForm(false)
   }
@@ -122,7 +128,7 @@ export default function TransactionsPage({ uid, transactions, accounts, addTx, u
                 </span>
                 <div className={styles.txActions}>
                   <button className={styles.iconBtn} onClick={() => handleEdit(tx)} title="Edit">✏️</button>
-                  <button className={styles.iconBtn} onClick={() => removeTx(tx.id)} title="Delete">🗑️</button>
+                  <button className={styles.iconBtn} onClick={() => { removeTx(tx.id); showToast?.('Transaction deleted', 'error') }} title="Delete">🗑️</button>
                 </div>
               </div>
             </div>

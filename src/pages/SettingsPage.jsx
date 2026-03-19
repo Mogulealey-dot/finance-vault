@@ -2,7 +2,7 @@ import { useState } from 'react'
 import styles from './SettingsPage.module.css'
 import { CURRENCIES, BUDGET_METHODS } from '../config/constants'
 
-export default function SettingsPage({ user, settings, updateSettings, logOut }) {
+export default function SettingsPage({ user, settings, updateSettings, logOut, showToast }) {
   const [form, setForm] = useState({
     currency: settings?.currency || 'USD',
     budgetMethod: settings?.budgetMethod || 'zero',
@@ -18,6 +18,7 @@ export default function SettingsPage({ user, settings, updateSettings, logOut })
     await updateSettings(form)
     setSaved(true)
     setTimeout(() => setSaved(false), 2000)
+    showToast?.('Settings saved')
   }
 
   return (

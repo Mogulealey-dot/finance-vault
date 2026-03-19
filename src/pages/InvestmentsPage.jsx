@@ -9,7 +9,7 @@ const COLORS = ['#6366f1', '#22c55e', '#f59e0b', '#ef4444', '#06b6d4', '#8b5cf6'
 const ASSET_TYPES = ['Stock', 'ETF', 'Mutual Fund', 'Bond', 'Crypto', 'Real Estate', 'Commodity', 'Other']
 const EMPTY_FORM = { ticker: '', name: '', assetType: 'Stock', shares: '', purchasePrice: '', currentPrice: '', account: '' }
 
-export default function InvestmentsPage({ investments, addInvestment, updateInvestment, removeInvestment, accounts }) {
+export default function InvestmentsPage({ investments, addInvestment, updateInvestment, removeInvestment, accounts, showToast }) {
   const [showForm, setShowForm] = useState(false)
   const [form, setForm] = useState(EMPTY_FORM)
   const [editing, setEditing] = useState(null)
@@ -28,8 +28,14 @@ export default function InvestmentsPage({ investments, addInvestment, updateInve
   const handleSave = async () => {
     if (!form.name || !form.shares) return
     const data = { ...form, shares: parseFloat(form.shares), purchasePrice: parseFloat(form.purchasePrice || 0), currentPrice: parseFloat(form.currentPrice || form.purchasePrice || 0) }
-    if (editing) { await updateInvestment(editing, data); setEditing(null) }
-    else await addInvestment(data)
+    if (editing) {
+      await updateInvestment(editing, data)
+      setEditing(null)
+      showToast?.('Investment updated')
+    } else {
+      await addInvestment(data)
+      showToast?.('Investment added')
+    }
     setForm(EMPTY_FORM)
     setShowForm(false)
   }
@@ -137,7 +143,7 @@ export default function InvestmentsPage({ investments, addInvestment, updateInve
               </div>
               <div className={styles.holdingActions}>
                 <button className={styles.iconBtn} onClick={() => handleEdit(inv)}>✏️</button>
-                <button className={styles.iconBtn} onClick={() => removeInvestment(inv.id)}>🗑️</button>
+                <button className={styles.iconBtn} onClick={() => { removeInvestment(inv.id); showToast?.('Investment removed', 'error') }}>🗑️</button>
               </div>
             </div>
           )

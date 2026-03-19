@@ -6,7 +6,7 @@ function fmt(n) { return new Intl.NumberFormat('en-US', { style: 'currency', cur
 
 const EMPTY_FORM = { name: '', type: 'checking', balance: '', institution: '', accountNumber: '', notes: '' }
 
-export default function AccountsPage({ accounts, addAccount, updateAccount, removeAccount }) {
+export default function AccountsPage({ accounts, addAccount, updateAccount, removeAccount, showToast }) {
   const [showForm, setShowForm] = useState(false)
   const [form, setForm] = useState(EMPTY_FORM)
   const [editing, setEditing] = useState(null)
@@ -18,8 +18,14 @@ export default function AccountsPage({ accounts, addAccount, updateAccount, remo
   const handleSave = async () => {
     if (!form.name || form.balance === '') return
     const data = { ...form, balance: parseFloat(form.balance) }
-    if (editing) { await updateAccount(editing, data); setEditing(null) }
-    else await addAccount(data)
+    if (editing) {
+      await updateAccount(editing, data)
+      setEditing(null)
+      showToast?.('Account updated')
+    } else {
+      await addAccount(data)
+      showToast?.('Account added')
+    }
     setForm(EMPTY_FORM)
     setShowForm(false)
   }
@@ -97,7 +103,7 @@ export default function AccountsPage({ accounts, addAccount, updateAccount, remo
                       </div>
                       <div className={styles.accountActions}>
                         <button className={styles.iconBtn} onClick={() => handleEdit(a)}>✏️</button>
-                        <button className={styles.iconBtn} onClick={() => removeAccount(a.id)}>🗑️</button>
+                        <button className={styles.iconBtn} onClick={() => { removeAccount(a.id); showToast?.('Account removed', 'error') }}>🗑️</button>
                       </div>
                     </div>
                     <div className={styles.accountBal} style={{ color: a.balance < 0 ? '#ef4444' : '#22c55e' }}>{fmt(a.balance)}</div>

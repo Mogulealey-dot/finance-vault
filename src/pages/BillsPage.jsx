@@ -7,7 +7,7 @@ function fmt(n) { return new Intl.NumberFormat('en-US', { style: 'currency', cur
 const BILL_CATEGORIES = ['Streaming', 'Software', 'Utilities', 'Insurance', 'Loan', 'Subscription', 'Phone', 'Internet', 'Membership', 'Other']
 const EMPTY_FORM = { name: '', amount: '', dueDay: '', recurrence: 'monthly', category: 'Subscription', autopay: false, url: '', notes: '' }
 
-export default function BillsPage({ bills, addBill, updateBill, removeBill }) {
+export default function BillsPage({ bills, addBill, updateBill, removeBill, showToast }) {
   const [showForm, setShowForm] = useState(false)
   const [form, setForm] = useState(EMPTY_FORM)
   const [editing, setEditing] = useState(null)
@@ -26,8 +26,14 @@ export default function BillsPage({ bills, addBill, updateBill, removeBill }) {
   const handleSave = async () => {
     if (!form.name || !form.amount) return
     const data = { ...form, amount: parseFloat(form.amount), dueDay: parseInt(form.dueDay) || 1 }
-    if (editing) { await updateBill(editing, data); setEditing(null) }
-    else await addBill(data)
+    if (editing) {
+      await updateBill(editing, data)
+      setEditing(null)
+      showToast?.('Bill updated')
+    } else {
+      await addBill(data)
+      showToast?.('Bill added')
+    }
     setForm(EMPTY_FORM)
     setShowForm(false)
   }
@@ -129,7 +135,7 @@ export default function BillsPage({ bills, addBill, updateBill, removeBill }) {
               </div>
               <div className={styles.billActions}>
                 <button className={styles.iconBtn} onClick={() => handleEdit(b)}>✏️</button>
-                <button className={styles.iconBtn} onClick={() => removeBill(b.id)}>🗑️</button>
+                <button className={styles.iconBtn} onClick={() => { removeBill(b.id); showToast?.('Bill removed', 'error') }}>🗑️</button>
               </div>
             </div>
           )
