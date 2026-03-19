@@ -1,10 +1,43 @@
 .page { max-width: 900px; margin: 0 auto; }
-.header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.5rem; }
+.header { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
 .title { font-size: 1.5rem; font-weight: 700; color: #e2e8f0; margin: 0; }
-.headerActions { display: flex; align-items: center; gap: 0.75rem; }
-.addBtn { background: #6366f1; color: white; border: none; padding: 0.6rem 1.25rem; border-radius: 8px; cursor: pointer; font-size: 0.9rem; font-weight: 600; }
-.downloadBtn { background: #1e293b; color: #94a3b8; border: 1px solid #334155; padding: 0.55rem 1.1rem; border-radius: 8px; cursor: pointer; font-size: 0.875rem; font-weight: 600; transition: background 0.15s, color 0.15s; }
+.headerActions { display: flex; align-items: center; gap: 0.75rem; flex-shrink: 0; }
+.addBtn {
+  background: #6366f1;
+  color: white;
+  border: none;
+  padding: 0.6rem 1.25rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 600;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  white-space: nowrap;
+}
+.downloadBtn {
+  background: #1e293b;
+  color: #94a3b8;
+  border: 1px solid #334155;
+  padding: 0.55rem 1.1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.875rem;
+  font-weight: 600;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  white-space: nowrap;
+  transition: background 0.15s, color 0.15s;
+}
 .downloadBtn:hover { background: #334155; color: #e2e8f0; }
+
+@media (max-width: 480px) {
+  .header { flex-direction: column; align-items: stretch; }
+  .headerActions { width: 100%; }
+  .downloadBtn, .addBtn { flex: 1; justify-content: center; font-size: 0.95rem; min-height: 48px; }
+}
 
 .summaryRow { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-bottom: 1.5rem; }
 .summaryCard { background: #1e293b; border: 1px solid #334155; border-top: 3px solid; border-radius: 10px; padding: 1rem 1.25rem; }
@@ -48,5 +81,9 @@
 .txAmt { font-size: 1rem; font-weight: 700; white-space: nowrap; }
 .txActions { display: flex; gap: 0.25rem; opacity: 0; transition: opacity 0.15s; }
 .txRow:hover .txActions { opacity: 1; }
+
+@media (max-width: 480px) {
+  .txActions { opacity: 1; }
+}
 .iconBtn { background: none; border: none; cursor: pointer; font-size: 0.9rem; padding: 0.25rem; border-radius: 4px; }
 .iconBtn:hover { background: #334155; }

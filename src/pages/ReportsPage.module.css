@@ -1,6 +1,22 @@
 .page { max-width: 900px; margin: 0 auto; }
-.header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 1.5rem; }
-.downloadBtn { background: #1e293b; color: #94a3b8; border: 1px solid #334155; padding: 0.55rem 1.1rem; border-radius: 8px; cursor: pointer; font-size: 0.875rem; font-weight: 600; white-space: nowrap; transition: background 0.15s, color 0.15s; }
+.header { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; margin-bottom: 1.5rem; }
+.downloadBtn {
+  background: #1e293b;
+  color: #94a3b8;
+  border: 1px solid #334155;
+  padding: 0.55rem 1.1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.875rem;
+  font-weight: 600;
+  white-space: nowrap;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  flex-shrink: 0;
+  transition: background 0.15s, color 0.15s;
+}
 .downloadBtn:hover { background: #334155; color: #e2e8f0; }
 .title { font-size: 1.5rem; font-weight: 700; color: #e2e8f0; margin: 0 0 0.25rem; }
 .sub { color: #64748b; font-size: 0.875rem; margin: 0; }
@@ -49,4 +65,9 @@
   .chartsGrid { grid-template-columns: 1fr; }
   .scoreCard { flex-direction: column; text-align: center; }
   .scoreMetrics { justify-content: center; }
+}
+
+@media (max-width: 480px) {
+  .header { flex-direction: column; align-items: stretch; }
+  .downloadBtn { width: 100%; justify-content: center; font-size: 0.95rem; min-height: 48px; }
 }
