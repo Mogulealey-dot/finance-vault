@@ -16,7 +16,7 @@ export default function Sidebar({ activePage, onNavigate, alertsByPage, alertCou
   return (
     <aside className={styles.sidebar}>
       <div className={styles.brand}>
-        <span className={styles.logo}>💎</span>
+        <div className={styles.logoWrap}>💎</div>
         <span className={styles.name}>{APP_NAME}</span>
       </div>
 
