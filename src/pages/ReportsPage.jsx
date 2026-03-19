@@ -2,10 +2,12 @@ import styles from './ReportsPage.module.css'
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, LineChart, Line, CartesianGrid } from 'recharts'
 import { getCategoryById } from '../config/categories'
 import { format, subMonths, startOfMonth, endOfMonth, isWithinInterval, parseISO } from 'date-fns'
+import { exportFinancialReport } from '../utils/exportPdf'
 
 function fmt(n) { return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n || 0) }
 
 export default function ReportsPage({ transactions, accounts, budgets, stats }) {
+  const handleDownloadPdf = () => exportFinancialReport({ transactions, accounts, budgets, stats })
   // Build last 6 months of income vs expense data
   const monthlyData = Array.from({ length: 6 }, (_, i) => {
     const d = subMonths(new Date(), 5 - i)
@@ -42,8 +44,11 @@ export default function ReportsPage({ transactions, accounts, budgets, stats }) 
   return (
     <div className={styles.page}>
       <div className={styles.header}>
-        <h1 className={styles.title}>Insights & Reports</h1>
-        <p className={styles.sub}>🧠 AI-powered analysis of your financial health</p>
+        <div>
+          <h1 className={styles.title}>Insights & Reports</h1>
+          <p className={styles.sub}>🧠 AI-powered analysis of your financial health</p>
+        </div>
+        <button className={styles.downloadBtn} onClick={handleDownloadPdf}>⬇ Download PDF</button>
       </div>
 
       {/* Financial health score */}

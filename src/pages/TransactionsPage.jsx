@@ -2,6 +2,7 @@ import { useState } from 'react'
 import styles from './TransactionsPage.module.css'
 import { TRANSACTION_CATEGORIES, getCategoryById } from '../config/categories'
 import { format } from 'date-fns'
+import { exportTransactionsPdf } from '../utils/exportPdf'
 
 function fmt(n) { return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(n || 0) }
 
@@ -42,7 +43,10 @@ export default function TransactionsPage({ uid, transactions, accounts, addTx, u
     <div className={styles.page}>
       <div className={styles.header}>
         <h1 className={styles.title}>Transactions</h1>
-        <button className={styles.addBtn} onClick={() => { setForm(EMPTY_FORM); setEditing(null); setShowForm(true) }}>+ Add Transaction</button>
+        <div className={styles.headerActions}>
+          <button className={styles.downloadBtn} onClick={() => exportTransactionsPdf(filtered, accounts)} title="Export visible transactions to PDF">⬇ Export PDF</button>
+          <button className={styles.addBtn} onClick={() => { setForm(EMPTY_FORM); setEditing(null); setShowForm(true) }}>+ Add Transaction</button>
+        </div>
       </div>
 
       <div className={styles.summaryRow}>
