@@ -5,6 +5,13 @@ import { format } from 'date-fns'
 import { exportTransactionsPdf } from '../utils/exportPdf'
 
 function fmt(n) { return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(n || 0) }
+function fmtDate(d) {
+  if (!d) return '—'
+  if (typeof d === 'string') return d
+  if (d?.toDate) return format(d.toDate(), 'yyyy-MM-dd')
+  if (d?.seconds) return format(new Date(d.seconds * 1000), 'yyyy-MM-dd')
+  return '—'
+}
 
 const EMPTY_FORM = { type: 'expense', amount: '', description: '', category: 'food', date: format(new Date(), 'yyyy-MM-dd'), account: '', notes: '' }
 
@@ -37,7 +44,7 @@ export default function TransactionsPage({ uid, transactions, accounts, addTx, u
   }
 
   const handleEdit = (tx) => {
-    setForm({ type: tx.type, amount: tx.amount, description: tx.description, category: tx.category, date: tx.date || format(new Date(), 'yyyy-MM-dd'), account: tx.account || '', notes: tx.notes || '' })
+    setForm({ type: tx.type, amount: tx.amount, description: tx.description, category: tx.category, date: fmtDate(tx.date) || format(new Date(), 'yyyy-MM-dd'), account: tx.account || '', notes: tx.notes || '' })
     setEditing(tx.id)
     setShowForm(true)
   }
@@ -120,7 +127,7 @@ export default function TransactionsPage({ uid, transactions, accounts, addTx, u
               <div className={styles.txIcon} style={{ background: cat.color + '22', color: cat.color }}>{cat.icon}</div>
               <div className={styles.txMain}>
                 <span className={styles.txDesc}>{tx.description || 'Transaction'}</span>
-                <span className={styles.txMeta}>{cat.label} · {tx.date || '—'}</span>
+                <span className={styles.txMeta}>{cat.label} · {fmtDate(tx.date)}</span>
               </div>
               <div className={styles.txRight}>
                 <span className={styles.txAmt} style={{ color: tx.type === 'income' ? '#22c55e' : '#f87171' }}>
