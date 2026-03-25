@@ -14,14 +14,7 @@ export function useFirestore(uid, collectionName) {
     const ref = collection(db, 'users', uid, collectionName)
     const q = query(ref, orderBy('createdAt', 'desc'))
     const unsub = onSnapshot(q, (snap) => {
-      setData(snap.docs.map(d => {
-        const raw = d.data()
-        // Normalize Firestore Timestamp in the `date` field to yyyy-MM-dd string
-        if (raw.date?.seconds !== undefined) {
-          raw.date = new Date(raw.date.seconds * 1000).toISOString().slice(0, 10)
-        }
-        return { id: d.id, ...raw }
-      }))
+      setData(snap.docs.map(d => ({ id: d.id, ...d.data() })))
       setLoading(false)
     }, () => setLoading(false))
     return unsub
